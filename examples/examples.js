@@ -35,6 +35,7 @@ import CustomComponents from './custom-components';
 import InfiniteScrolling from './infinite-scrolling';
 import Themes from './themes';
 import LargeDataSet from './large-data-set';
+import Grouping from './grouping';
 
 /**
  * Here you can add any extra examples with the Card label as the key, and the component to render as the value
@@ -60,6 +61,7 @@ export default {
   'Customize Toolbar Select': CustomizeToolbarSelect,
   'Data As Objects': DataAsObjects,
   'Draggable Columns': DraggableColumns,
+  'Grouping': Grouping,
   'Expandable Rows': ExpandableRows,
   'Fixed Header': FixedHeader,
   'Hide Columns Print': HideColumnsPrint,

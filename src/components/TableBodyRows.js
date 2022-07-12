@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@mui/material/Typography';
-import MuiTableBody from '@mui/material/TableBody';
+import Typography from '@material-ui/core/Typography';
+import MuiTableBody from '@material-ui/core/TableBody';
 import TableBodyCell from './TableBodyCell';
 import TableBodyRow from './TableBodyRow';
-import TableBodyRows from './TableBodyRows';
 import TableSelectCell from './TableSelectCell';
-import { withStyles } from 'tss-react/mui';
+import { withStyles } from '@material-ui/core/styles';
 import cloneDeep from 'lodash.clonedeep';
 import { getPageValue } from '../utils';
 import clsx from 'clsx';
@@ -17,14 +16,14 @@ const defaultBodyStyles = theme => ({
     textAlign: 'center',
   },
   lastStackedCell: {
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       '& td:last-child': {
         borderBottom: 'none',
       },
     },
   },
   lastSimpleCell: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       '& td:last-child': {
         borderBottom: 'none',
       },
@@ -32,7 +31,7 @@ const defaultBodyStyles = theme => ({
   },
 });
 
-class TableBody extends React.Component {
+class TableBodyRows extends React.Component {
   static propTypes = {
     /** Data used to describe table */
     data: PropTypes.array.isRequired,
@@ -66,27 +65,6 @@ class TableBody extends React.Component {
     toggleExpandRow: () => {},
   };
 
-  buildRows() {
-    const { data, page, rowsPerPage, count } = this.props;
-
-    if (this.props.options.serverSide) return data.length ? data : null;
-
-    let rows = [];
-    const highestPageInRange = getPageValue(count, rowsPerPage, page);
-    const fromIndex = highestPageInRange === 0 ? 0 : highestPageInRange * rowsPerPage;
-    const toIndex = Math.min(count, (highestPageInRange + 1) * rowsPerPage);
-
-    if (page > highestPageInRange) {
-      console.warn('Current page is out of range, using the highest page that is in range instead.');
-    }
-
-    for (let rowIndex = fromIndex; rowIndex < count && rowIndex < toIndex; rowIndex++) {
-      if (data[rowIndex] !== undefined) rows.push(data[rowIndex]);
-    }
-
-    return rows.length ? rows : null;
-  }
-/* 
   getRowIndex(index) {
     const { page, rowsPerPage, options } = this.props;
 
@@ -220,7 +198,7 @@ class TableBody extends React.Component {
       });
     }
     return ret;
-  }; */
+  };
 
   render() {
     const {
@@ -231,13 +209,13 @@ class TableBody extends React.Component {
       columnOrder = this.props.columns.map((item, idx) => idx),
       components = {},
       tableId,
+      tableRows,
     } = this.props;
-    const tableRows = this.buildRows();
-    //const visibleColCnt = columns.filter(c => c.display === 'true').length;
+    const visibleColCnt = columns.filter(c => c.display === 'true').length;
 
     return (
-      <MuiTableBody>
-        {/* {tableRows && tableRows.length > 0 ? (
+      <React.Fragment>
+        {tableRows && tableRows.length > 0 ? (
           tableRows.map((data, rowIndex) => {
             const { data: row, dataIndex } = data;
 
@@ -268,7 +246,7 @@ class TableBody extends React.Component {
                     [bodyClasses.className]: bodyClasses.className,
                   })}
                   data-testid={'MUIDataTableBodyRow-' + dataIndex}
-                  id={`MUIDataTableBodyRow-${tableId}-${dataIndex}`}>
+                  id={'MUIDataTableBodyRow-' + dataIndex}>
                   <TableSelectCell
                     onChange={this.handleRowSelect.bind(null, {
                       index: this.getRowIndex(rowIndex),
@@ -290,7 +268,7 @@ class TableBody extends React.Component {
                     isRowExpanded={this.isRowExpanded(dataIndex)}
                     isRowSelectable={isRowSelectable}
                     dataIndex={dataIndex}
-                    id={`MUIDataTableSelectCell-${tableId}-${dataIndex}`}
+                    id={'MUIDataTableSelectCell-' + dataIndex}
                     components={components}
                   />
                   {processedRow.map(
@@ -326,32 +304,14 @@ class TableBody extends React.Component {
               colIndex={0}
               rowIndex={0}>
               <Typography variant="body1" className={classes.emptyTitle} component={'div'}>
-                {options.textLabels.body.noMatch}
+                {options.textLabels ? options.textLabels.body.noMatch : ""}
               </Typography>
             </TableBodyCell>
           </TableBodyRow>
-        )} */}
-        <TableBodyRows
-          tableRows={tableRows}
-          data={this.props.data}
-          count={this.props.count}
-          columns={this.props.columns}
-          page={this.props.page}
-          rowsPerPage={this.props.rowsPerPage}
-          selectedRows={this.props.selectedRows}
-          selectRowUpdate={this.props.selectRowUpdate}
-          previousSelectedRow={this.props.previousSelectedRow}
-          expandedRows={this.props.expandedRows}
-          toggleExpandRow={this.props.toggleExpandRow}
-          options={this.props.options}
-          columnOrder={this.props.columnOrder}
-          filterList={this.props.filterList}
-          components={this.props.components}
-          tableId={this.props.tableId}
-        />
-      </MuiTableBody>
+        )}
+      </React.Fragment>
     );
   }
 }
 
-export default withStyles(TableBody, defaultBodyStyles, { name: 'MUIDataTableBody' });
+export default withStyles(defaultBodyStyles, { name: 'MUIDataTableBodyRows' })(TableBodyRows);
