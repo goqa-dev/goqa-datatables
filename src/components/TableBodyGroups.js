@@ -51,7 +51,6 @@ class TableBody extends React.Component {
   };
 
   flattenGroups(rows, rootGroup, columns, grouping, isGroupExpanded) {
-
     for (let prop in rootGroup.groups) {
       let group = rootGroup.groups[prop];
       if (group.data) {
@@ -75,7 +74,6 @@ class TableBody extends React.Component {
             data: group,
           });
         }
-
       } else {
         let isExpanded = isGroupExpanded(grouping, group.group);
         rows.push({
@@ -93,7 +91,6 @@ class TableBody extends React.Component {
         if (isExpanded) {
           this.flattenGroups(rows, rootGroup.groups[prop], columns, grouping, isGroupExpanded);
         }
-
       }
     }
 

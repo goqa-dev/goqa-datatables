@@ -33,49 +33,49 @@ const useStyles = makeStyles(
     },
     expandButton: {
       marginRight: '10px',
-    }
+    },
   }),
   { name: 'MUIDataTableBodyGroupHeaderRow' },
 );
 
 function TableBodyGroupHeaderRow(props) {
-    const { columns, options, components = {}, tableId, row } = props;
-    const classes = useStyles();
+  const { columns, options, components = {}, tableId, row } = props;
+  const classes = useStyles();
 
-    const onExpand = () => {};
+  const onExpand = () => {};
 
-    const iconClass = clsx({
-        [classes.icon]: true,
-        [classes.expanded]: row.expanded,
-    });
+  const iconClass = clsx({
+    [classes.icon]: true,
+    [classes.expanded]: row.expanded,
+  });
 
-    const getLevelOffset = level => {
-        return (level - 1) * 32 + 'px';
-    };
+  const getLevelOffset = level => {
+    return (level - 1) * 32 + 'px';
+  };
 
-    let bodyClasses = options.setRowProps ? options.setRowProps(row, null, null) || {} : {};
-    //console.dir(row);
-    return (
-        <TableRow
-        {...bodyClasses}
-        className={clsx({
-            [bodyClasses.className]: bodyClasses.className,
-            [classes.tableRow]: true,
-        })}>
-            <TableCell className={classes.tableRow} colSpan={1000}>
-                <IconButton
-                    className={classes.expandButton}
-                    style={{
-                        marginLeft: getLevelOffset(row.level),
-                    }}
-                    onClick={row.onExpansionChange}>
-                    <KeyboardArrowRight id="expandable-button" className={iconClass} />
-                </IconButton>
-                <div className={classes.columnName}>{row.columnLabel}:</div>
-                <div className={classes.columnValue}>{row.columnValue}</div>
-        </TableCell>
-        </TableRow>
-    );
+  let bodyClasses = options.setRowProps ? options.setRowProps(row, null, null) || {} : {};
+  //console.dir(row);
+  return (
+    <TableRow
+      {...bodyClasses}
+      className={clsx({
+        [bodyClasses.className]: bodyClasses.className,
+        [classes.tableRow]: true,
+      })}>
+      <TableCell className={classes.tableRow} colSpan={1000}>
+        <IconButton
+          className={classes.expandButton}
+          style={{
+            marginLeft: getLevelOffset(row.level),
+          }}
+          onClick={row.onExpansionChange}>
+          <KeyboardArrowRight id="expandable-button" className={iconClass} />
+        </IconButton>
+        <div className={classes.columnName}>{row.columnLabel}:</div>
+        <div className={classes.columnValue}>{row.columnValue}</div>
+      </TableCell>
+    </TableRow>
+  );
 }
 
 export default TableBodyGroupHeaderRow;

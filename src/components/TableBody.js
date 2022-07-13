@@ -86,7 +86,7 @@ class TableBody extends React.Component {
 
     return rows.length ? rows : null;
   }
-/* 
+  /* 
   getRowIndex(index) {
     const { page, rowsPerPage, options } = this.props;
 

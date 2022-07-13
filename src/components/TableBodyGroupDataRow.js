@@ -11,27 +11,27 @@ const defaultBodyStyles = theme => ({
 });
 
 function TableBodyGroupDataRow(props) {
-    const { row } = props;
-    return (
-        <TableBodyRows
-            tableRows={row.data.data}
-            data={props.data}
-            count={props.count}
-            columns={props.columns}
-            page={props.page}
-            rowsPerPage={props.rowsPerPage}
-            selectedRows={props.selectedRows}
-            selectRowUpdate={props.selectRowUpdate}
-            previousSelectedRow={props.previousSelectedRow}
-            expandedRows={props.expandedRows}
-            toggleExpandRow={props.toggleExpandRow}
-            options={props.options}
-            columnOrder={props.columnOrder}
-            filterList={props.filterList}
-            components={props.components}
-            tableId={props.tableId}
-        />
-    );
+  const { row } = props;
+  return (
+    <TableBodyRows
+      tableRows={row.data.data}
+      data={props.data}
+      count={props.count}
+      columns={props.columns}
+      page={props.page}
+      rowsPerPage={props.rowsPerPage}
+      selectedRows={props.selectedRows}
+      selectRowUpdate={props.selectRowUpdate}
+      previousSelectedRow={props.previousSelectedRow}
+      expandedRows={props.expandedRows}
+      toggleExpandRow={props.toggleExpandRow}
+      options={props.options}
+      columnOrder={props.columnOrder}
+      filterList={props.filterList}
+      components={props.components}
+      tableId={props.tableId}
+    />
+  );
 }
 
 export default TableBodyGroupDataRow;

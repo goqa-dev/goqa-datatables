@@ -1257,7 +1257,6 @@ class MUIDataTable extends React.Component {
   }
 
   getGroupingData(displayData, grouping) {
-
     if (!grouping) return null;
 
     //console.log('getGroupingData');
@@ -1477,7 +1476,9 @@ class MUIDataTable extends React.Component {
   searchClose = () => {
     this.setState(
       prevState => {
-        let nextDisplayData = this.options.serverSide ? prevState.displayData : this.getDisplayData(prevState.columns, prevState.data, prevState.filterList, null, null, this.props);
+        let nextDisplayData = this.options.serverSide
+          ? prevState.displayData
+          : this.getDisplayData(prevState.columns, prevState.data, prevState.filterList, null, null, this.props);
 
         return {
           searchText: null,
@@ -1497,7 +1498,9 @@ class MUIDataTable extends React.Component {
   searchTextUpdate = text => {
     this.setState(
       prevState => {
-        let nextDisplayData = this.options.serverSide ? prevState.displayData : this.getDisplayData(prevState.columns, prevState.data, prevState.filterList, text, null, this.props);
+        let nextDisplayData = this.options.serverSide
+          ? prevState.displayData
+          : this.getDisplayData(prevState.columns, prevState.data, prevState.filterList, text, null, this.props);
 
         return {
           searchText: text && text.length ? text : null,
@@ -1521,15 +1524,8 @@ class MUIDataTable extends React.Component {
         const filterList = prevState.columns.map(() => []);
 
         let nextDisplayData = this.options.serverSide
-        ? prevState.displayData
-        : this.getDisplayData(
-            prevState.columns,
-            prevState.data,
-            filterList,
-            prevState.searchText,
-            null,
-            this.props,
-          );
+          ? prevState.displayData
+          : this.getDisplayData(prevState.columns, prevState.data, filterList, prevState.searchText, null, this.props);
 
         return {
           filterList: filterList,
@@ -1582,14 +1578,7 @@ class MUIDataTable extends React.Component {
 
         let nextDisplayData = this.options.serverSide
           ? prevState.displayData
-          : this.getDisplayData(
-              prevState.columns,
-              prevState.data,
-              filterList,
-              prevState.searchText,
-              null,
-              this.props,
-            );
+          : this.getDisplayData(prevState.columns, prevState.data, filterList, prevState.searchText, null, this.props);
 
         return {
           page: 0,
